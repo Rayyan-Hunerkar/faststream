@@ -120,7 +120,7 @@ Environments/
 
 # mkdocs documentation
 /site
-
+/._dstore
 # mypy
 .mypy_cache/
 .dmypy.json
