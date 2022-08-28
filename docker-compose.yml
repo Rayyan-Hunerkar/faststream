@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    image: mongo:latest
+    container_name: mongo-dev
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=djangoadmin
+      - MONGO_INITDB_DATABASE=auth
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    networks:
+      - faststream-network
+
+  server:
+    build: .
+    container_name: server
+    command: sh -c "ENV=${ENV} python main.py"
+    volumes: 
+    - .:/faststream
+    ports:
+    - "8000:8000"
+    networks:
+      - faststream-network
+
+networks:
+  faststream-network:
+    driver: bridge
